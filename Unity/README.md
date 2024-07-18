@@ -19,3 +19,5 @@ To make the menu item visually show the current state of the toggle, I used a me
 Now I can finally save 16 seconds of my life everytime I have to toggle this thing on/off (yes, I actually timed it).
 
 ![](Images/Menu%20Item%20Editor%20Setting%20(July%2015,%2024).jpg)
+
+<details> <summary>Click to view the code</summary> <script src="https://gist.github.com/visca-c/335d79c112a865c46ee6c6e813447a77.js"></script> </details>
