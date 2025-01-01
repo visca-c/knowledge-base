@@ -21,3 +21,52 @@ Now I can finally save 16 seconds of my life everytime I have to toggle this thi
 ![](Images/Menu%20Item%20Editor%20Setting%20(July%2015,%2024).jpg)
 
 Checkout the code: [Link To Gist](https://gist.github.com/visca-c/335d79c112a865c46ee6c6e813447a77)
+
+<br>
+
+## The Mystery of the Non-Saving Unity List
+#### The Issue
+While implementing an editor tool to edit a list of conditions for my game's A.I in Unity, I encountered an issue where the `Conditions` list unexpectedly became empty after exiting play mode. Normally, this would be solved by a simple call to `EditorUtility.SetDirty`, but it didn't do the trick this time. After some investigation, I uncovered some nuances about Unity's serialization system that are worth documenting.
+
+The code for adding a condition looks like this:
+
+```csharp
+void AddCondition(Type type)
+{
+    var condition = CreateInstance(type) as AICondition;
+    aiAction.Conditions.Add(condition);
+    //Normally this SetDirty call would be suffice.
+    EditorUtility.SetDirty(aiAction);
+    Repaint();
+}
+```
+
+The code for the definition of the condition list looked like this:
+
+```csharp
+[SerializeField] private List<AICondition> _conditions;
+
+public List<AICondition> Conditions
+{
+    get => _conditions;
+    private set => _conditions = value;
+}
+```
+#### The Solution
+The problem was that my private list was not serialized. Since public fields are serialized, and public properties are often used like public fields, it was easy to ignore the detail.
+
+The solution was simple: adding a `[SerializeField]` attribute to the private list. Here's the updated code:
+
+```csharp
+[SerializeField] private List<AICondition> _conditions;
+
+public List<AICondition> Conditions
+{
+    get => _conditions;
+    private set => _conditions = value;
+}
+```
+
+### Conclusion
+
+A simple `[SerializeField]` solved the issue, turning a frustrating bug into a valuable lesson. Public properties don’t serialize without explicit backing fields, and editing data in the editor requires serialization to save properly. With this fix, my editor tool is one step closer to completion—and hopefully, I’ll avoid similar pitfalls in the future.
