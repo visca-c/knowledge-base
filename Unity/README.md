@@ -44,7 +44,7 @@ void AddCondition(Type type)
 The code for the definition of the condition list looked like this:
 
 ```csharp
-[SerializeField] private List<AICondition> _conditions;
+[SerializeField] private List<AICondition> _conditions = new();
 
 public List<AICondition> Conditions
 {
