@@ -70,3 +70,20 @@ public List<AICondition> Conditions
 ### Conclusion
 
 A simple `[SerializeField]` solved the issue, turning a frustrating bug into a valuable lesson. Public properties don’t serialize without explicit backing fields, and editing data in the editor requires serialization to save properly. With this fix, my editor tool is one step closer to completion—and hopefully, I’ll avoid similar pitfalls in the future.
+
+<br>
+
+## Use SessionState for initialization
+#### Overview
+Allows you to store and retrieve session-persistent data in the Editor. Useful for ensuring that certain initializations only run once per session.
+
+E.G Example Usage: 
+```csharp
+    [InitializeOnLoadMethod]
+    public static void InitializeOnLoad()
+    {
+        bool initialized = SessionState.GetBool(SessionStateKey, false);
+        if (initialized) return;
+        Initialize();
+    }
+```
