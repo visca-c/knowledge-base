@@ -87,3 +87,29 @@ E.G Example Usage:
         Initialize();
     }
 ```
+
+<br>
+
+## Dispaly confirmation dialog in editor
+#### Description
+[EditorUtility.DisplayDialog](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/EditorUtility.DisplayDialog.html) is useful to show confirmation dialog when making editor tool.
+
+
+
+E.G Example Usage: 
+```csharp
+    public static void PerformAction()
+    {
+        if (EditorUtility.DisplayDialog("Confirm Action", "Are you sure you want to proceed?", "Yes", "No"))
+        {
+            Debug.Log("Action confirmed.");
+            // Perform the action here
+        }
+        else
+        {
+            Debug.Log("Action canceled.");
+        }
+    }
+```
+
+<br>
