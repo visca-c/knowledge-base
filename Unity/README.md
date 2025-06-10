@@ -113,3 +113,24 @@ E.G Example Usage:
 ```
 
 <br>
+
+## Save Scriptable Object to asset
+#### Context
+I made an editor tool that draws a list of custom objects, these scriptable objects were created by code, and did not have .asset file. A bug arised when I try to use this editor tool on a prefab object, my list would not get saved. Later on I learned that scriptable objects' data need to be saved on file, typically their own .asset file. But in this use case I did not want to have explicit .asset files for each scriptable object, that's when I discovered `AssetDatabase.AddObjectToAsset`. I created an save data object, then add my custom scriptable object to it, upon removal, call `AssetDatabase.RemoveObjectFromAsset`, and now my list saves properly.
+
+
+
+E.G Example Usage: 
+```csharp
+    public void OnAdd(MySo so)
+    {
+        AssetDatabase.AddObjectToAsset(so, _saveDataObject);
+    }
+
+    public void OnRemove(MySo so)
+    {
+        AssetDatabase.RemoveObjectFromAsset(so);
+    }
+```
+
+<br>
