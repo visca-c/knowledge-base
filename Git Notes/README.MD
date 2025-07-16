@@ -11,9 +11,8 @@ The steps consists of:
    The detailed steps can be found in the referenced article.
    Referenced article link: [How to Move a Private Repository from Bitbucket to Github](https://medium.com/collaborne-engineering/how-to-migrate-a-private-repository-from-bitbucket-to-github-6cddedd5d73)
 
-\
-\
-\
+<br />
+<br />
 
 # To delete all local branches except main
 
