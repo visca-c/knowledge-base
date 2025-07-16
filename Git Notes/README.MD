@@ -17,7 +17,7 @@ The steps consists of:
 # To delete all local branches except main
 
 
-git branch | grep -v "main" | xargs git branch -D
+'git branch | grep -v "main" | xargs git branch -D'
 
 
 Source: [Stackoverflow - Delete all local Git branches](https://stackoverflow.com/a/26152200)
