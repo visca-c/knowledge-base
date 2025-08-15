@@ -134,3 +134,36 @@ E.G Example Usage:
 ```
 
 <br>
+
+## Skip Drawing Serialized Fields Using Custom Editor
+#### Context
+Sometimes I only want to expose certain field of a class in the inspector for a cleaner look. One way to do it is manually drawing them through custom editor, but it gets tedious when you want to draw most fields but only leave one or two. This is when skip drawing fields comes in handy, it allows you to only write out the fields you don't want to draw, and keep everything else the same.
+
+Example: Skip drawing the script field.
+```csharp
+using UnityEditor;
+
+[CustomEditor(typeof(ExampleClass))]
+public class ExampleClass : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+        SerializedProperty prop = serializedObject.GetIterator();
+        bool enterChildren = true;
+        while (prop.NextVisible(enterChildren))
+        {
+            if (prop.name == "m_Script")
+            {
+                enterChildren = false;
+                continue;
+            }
+            EditorGUILayout.PropertyField(prop, true);
+            enterChildren = false;
+        }
+        serializedObject.ApplyModifiedProperties();
+    }
+}
+```
+
+<br>
